@@ -32,18 +32,18 @@ CHART_COLORS = [
 
 # — Plotly template —
 PLOTLY_LAYOUT = dict(
-    font=dict(family="Segoe UI, Tahoma, sans-serif", color=COLOR_TEXT, size=13),
-    paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(0,0,0,0)",
-    title=dict(font=dict(size=17, color=COLOR_PRIMARY), x=0.5, xanchor="center"),
+    font=dict(family="Inter, Segoe UI, sans-serif", color=COLOR_TEXT, size=13),
+    paper_bgcolor="#FFFFFF",
+    plot_bgcolor="#FFFFFF",
+    title=dict(font=dict(size=16, color=COLOR_PRIMARY), x=0.5, xanchor="center"),
     margin=dict(l=20, r=20, t=60, b=30),
     legend=dict(
         orientation="h", yanchor="bottom", y=-0.22,
         xanchor="center", x=0.5,
-        font=dict(size=11), bgcolor="rgba(0,0,0,0)"
+        font=dict(size=11, color=COLOR_TEXT), bgcolor="rgba(0,0,0,0)"
     ),
-    xaxis=dict(gridcolor="#F1F5F9", zerolinecolor="#E2E8F0"),
-    yaxis=dict(gridcolor="#F1F5F9", zerolinecolor="#E2E8F0"),
+    xaxis=dict(gridcolor="#F1F5F9", zerolinecolor="#E2E8F0", title_font_color=COLOR_TEXT, tickfont_color=COLOR_TEXT),
+    yaxis=dict(gridcolor="#F1F5F9", zerolinecolor="#E2E8F0", title_font_color=COLOR_TEXT, tickfont_color=COLOR_TEXT),
 )
 
 def styled_fig(fig, **kwargs):
@@ -61,99 +61,116 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 html, body, [class*="css"] { font-family: 'Inter', 'Segoe UI', sans-serif; }
 
+/* Force light background everywhere */
+.stApp {
+    background-color: #FFFFFF !important;
+}
 .block-container {
     padding-top: 1.5rem;
     padding-bottom: 2rem;
-    max-width: 1200px;
+    max-width: 1180px;
 }
 
 /* ── Header ── */
 .dashboard-header {
     background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-    color: white;
+    color: #FFFFFF !important;
     padding: 2rem 2.5rem 1.6rem;
-    border-radius: 16px;
-    margin-bottom: 1.8rem;
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
 }
 .dashboard-header h1 {
-    font-size: 1.75rem;
+    font-size: 1.7rem;
     font-weight: 700;
+    color: #FFFFFF !important;
     margin: 0 0 0.3rem;
     letter-spacing: -0.02em;
 }
 .dashboard-header p {
-    color: #94A3B8;
-    font-size: 0.92rem;
+    color: #CBD5E1 !important;
+    font-size: 0.9rem;
     margin: 0;
 }
 
 /* ── Metric cards ── */
 .metric-card {
-    background: #F8FAFC;
+    background: #FFFFFF;
     border: 1px solid #E2E8F0;
     border-radius: 12px;
-    padding: 1.2rem 1.4rem;
+    padding: 1.2rem 1.3rem;
     text-align: center;
     transition: box-shadow 0.2s;
 }
 .metric-card:hover {
-    box-shadow: 0 4px 12px rgba(15,23,42,0.07);
+    box-shadow: 0 4px 16px rgba(15,23,42,0.08);
+    border-color: #CBD5E1;
 }
 .metric-card .label {
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: #64748B;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748B !important;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 0.35rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
 }
 .metric-card .value {
-    font-size: 1.65rem;
+    font-size: 1.7rem;
     font-weight: 700;
-    color: #0F172A;
+    color: #0F172A !important;
+    line-height: 1.2;
 }
 .metric-card .unit {
-    font-size: 0.75rem;
-    color: #94A3B8;
-    margin-top: 0.15rem;
+    font-size: 0.78rem;
+    color: #94A3B8 !important;
+    margin-top: 0.2rem;
 }
 
 /* ── Section titles ── */
-h2, h3 {
-    color: #0F172A;
+h1, h2, h3 {
+    color: #0F172A !important;
     font-weight: 600;
-    letter-spacing: -0.01em;
 }
 .section-title {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #0F172A;
+    color: #0F172A !important;
     border-left: 4px solid #3B82F6;
-    padding-left: 0.8rem;
+    padding-left: 0.75rem;
     margin: 1.5rem 0 1rem;
 }
 
 /* ── Tabs ── */
 button[data-baseweb="tab"] {
     font-weight: 500 !important;
-    font-size: 0.9rem !important;
+    font-size: 0.88rem !important;
     color: #64748B !important;
-    padding: 0.6rem 1.2rem !important;
+    background: transparent !important;
 }
 button[data-baseweb="tab"][aria-selected="true"] {
     color: #0F172A !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
 }
 
 /* ── Sidebar ── */
 section[data-testid="stSidebar"] {
-    background: #F8FAFC;
-    border-right: 1px solid #E2E8F0;
+    background-color: #F8FAFC !important;
 }
-section[data-testid="stSidebar"] h1 {
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] .stMarkdown h1 {
     font-size: 1.05rem;
     font-weight: 600;
-    color: #0F172A;
+    color: #0F172A !important;
+}
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] .stMarkdown {
+    color: #334155 !important;
+}
+/* Multiselect pills */
+section[data-testid="stSidebar"] span[data-baseweb="tag"] {
+    background-color: #3B82F6 !important;
+    color: #FFFFFF !important;
+    border-radius: 6px;
+    font-size: 0.8rem;
 }
 
 /* ── Dataframe ── */
@@ -163,26 +180,29 @@ section[data-testid="stSidebar"] h1 {
 }
 
 /* ── Divider ── */
-hr { border-color: #E2E8F0; margin: 1.2rem 0; }
+hr { border-color: #E2E8F0 !important; margin: 1.2rem 0; }
 
 /* ── Policy cards ── */
 .policy-card {
     background: #F8FAFC;
     border: 1px solid #E2E8F0;
     border-radius: 12px;
-    padding: 1.4rem 1.6rem;
+    padding: 1.3rem 1.5rem;
     margin-bottom: 1rem;
 }
 .policy-card h4 {
     font-size: 1rem;
     font-weight: 600;
-    color: #0F172A;
+    color: #0F172A !important;
     margin: 0 0 0.5rem;
 }
 .policy-card p, .policy-card li {
-    font-size: 0.88rem;
-    color: #475569;
+    font-size: 0.86rem;
+    color: #475569 !important;
     line-height: 1.65;
+}
+.policy-card strong {
+    color: #1E293B !important;
 }
 </style>
 """, unsafe_allow_html=True)
