@@ -15,39 +15,35 @@ st.set_page_config(
 # DESIGN SYSTEM
 # ══════════════════════════════════════════════════════════════
 
-# — Palette —
-COLOR_PRIMARY   = "#0F172A"   # Dark navy
-COLOR_ACCENT    = "#3B82F6"   # Blue accent
-COLOR_BG_CARD   = "#F8FAFC"   # Very light gray
-COLOR_BORDER    = "#E2E8F0"   # Subtle border
-COLOR_TEXT      = "#334155"   # Slate text
-COLOR_MUTED     = "#94A3B8"   # Muted
+COLOR_PRIMARY = "#1E293B"
+COLOR_TEXT    = "#334155"
 
-# — Chart colors (accessible & cohesive) —
 CHART_COLORS = [
-    "#3B82F6", "#10B981", "#F59E0B", "#EF4444",
-    "#8B5CF6", "#06B6D4", "#F97316", "#EC4899",
-    "#14B8A6", "#6366F1"
+    "#4F46E5", "#0EA5E9", "#10B981", "#F59E0B",
+    "#EF4444", "#8B5CF6", "#EC4899", "#06B6D4",
+    "#14B8A6", "#F97316"
 ]
 
-# — Plotly template —
 PLOTLY_LAYOUT = dict(
-    font=dict(family="Inter, Segoe UI, sans-serif", color=COLOR_TEXT, size=13),
+    font=dict(family="Inter, Segoe UI, sans-serif", color=COLOR_TEXT, size=12),
     paper_bgcolor="#FFFFFF",
-    plot_bgcolor="#FFFFFF",
-    title=dict(font=dict(size=16, color=COLOR_PRIMARY), x=0.5, xanchor="center"),
-    margin=dict(l=20, r=20, t=60, b=30),
+    plot_bgcolor="#FAFBFC",
+    title=dict(font=dict(size=15, color=COLOR_PRIMARY, weight=600), x=0, xanchor="left"),
+    margin=dict(l=10, r=10, t=52, b=20),
     legend=dict(
-        orientation="h", yanchor="bottom", y=-0.22,
+        orientation="h", yanchor="bottom", y=-0.25,
         xanchor="center", x=0.5,
-        font=dict(size=11, color=COLOR_TEXT), bgcolor="rgba(0,0,0,0)"
+        font=dict(size=10.5, color="#64748B"), bgcolor="rgba(0,0,0,0)"
     ),
-    xaxis=dict(gridcolor="#F1F5F9", zerolinecolor="#E2E8F0", title_font_color=COLOR_TEXT, tickfont_color=COLOR_TEXT),
-    yaxis=dict(gridcolor="#F1F5F9", zerolinecolor="#E2E8F0", title_font_color=COLOR_TEXT, tickfont_color=COLOR_TEXT),
+    xaxis=dict(gridcolor="#F1F5F9", zerolinecolor="#E2E8F0",
+              title_font=dict(color="#64748B", size=11),
+              tickfont=dict(color="#64748B", size=10)),
+    yaxis=dict(gridcolor="#F1F5F9", zerolinecolor="#E2E8F0",
+              title_font=dict(color="#64748B", size=11),
+              tickfont=dict(color="#64748B", size=10)),
 )
 
 def styled_fig(fig, **kwargs):
-    """Apply consistent theme to any Plotly figure."""
     layout = {**PLOTLY_LAYOUT, **kwargs}
     fig.update_layout(**layout)
     fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor="#F1F5F9")
@@ -57,164 +53,272 @@ def styled_fig(fig, **kwargs):
 # ---------- CSS ----------
 st.markdown("""
 <style>
-/* ── Global ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-html, body, [class*="css"] { font-family: 'Inter', 'Segoe UI', sans-serif; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+html, body, [class*="css"] { font-family: 'Inter', 'Segoe UI', sans-serif !important; }
 
-/* Force light background everywhere */
-.stApp {
-    background-color: #FFFFFF !important;
-}
+.stApp { background: #F8FAFC !important; }
+
 .block-container {
-    padding-top: 1.5rem;
-    padding-bottom: 2rem;
-    max-width: 1180px;
+    padding: 1.2rem 2rem 2rem !important;
+    max-width: 1160px;
 }
 
-/* ── Header ── */
-.dashboard-header {
-    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-    color: #FFFFFF !important;
-    padding: 2rem 2.5rem 1.6rem;
-    border-radius: 14px;
-    margin-bottom: 1.5rem;
-}
-.dashboard-header h1 {
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #FFFFFF !important;
-    margin: 0 0 0.3rem;
-    letter-spacing: -0.02em;
-}
-.dashboard-header p {
-    color: #CBD5E1 !important;
-    font-size: 0.9rem;
-    margin: 0;
-}
-
-/* ── Metric cards ── */
-.metric-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 1.2rem 1.3rem;
-    text-align: center;
-    transition: box-shadow 0.2s;
-}
-.metric-card:hover {
-    box-shadow: 0 4px 16px rgba(15,23,42,0.08);
-    border-color: #CBD5E1;
-}
-.metric-card .label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #64748B !important;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.4rem;
-}
-.metric-card .value {
-    font-size: 1.7rem;
-    font-weight: 700;
-    color: #0F172A !important;
-    line-height: 1.2;
-}
-.metric-card .unit {
-    font-size: 0.78rem;
-    color: #94A3B8 !important;
-    margin-top: 0.2rem;
-}
-
-/* ── Section titles ── */
-h1, h2, h3 {
-    color: #0F172A !important;
-    font-weight: 600;
-}
-.section-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #0F172A !important;
-    border-left: 4px solid #3B82F6;
-    padding-left: 0.75rem;
-    margin: 1.5rem 0 1rem;
-}
-
-/* ── Tabs ── */
-button[data-baseweb="tab"] {
-    font-weight: 500 !important;
-    font-size: 0.88rem !important;
-    color: #64748B !important;
-    background: transparent !important;
-}
-button[data-baseweb="tab"][aria-selected="true"] {
-    color: #0F172A !important;
-    font-weight: 700 !important;
-}
-
-/* ── Sidebar ── */
-section[data-testid="stSidebar"] {
-    background-color: #F8FAFC !important;
-}
-section[data-testid="stSidebar"] h1,
-section[data-testid="stSidebar"] .stMarkdown h1 {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #0F172A !important;
-}
-section[data-testid="stSidebar"] label,
-section[data-testid="stSidebar"] .stMarkdown {
-    color: #334155 !important;
-}
-/* Multiselect pills */
-section[data-testid="stSidebar"] span[data-baseweb="tag"] {
-    background-color: #3B82F6 !important;
-    color: #FFFFFF !important;
-    border-radius: 6px;
-    font-size: 0.8rem;
-}
-
-/* ── Dataframe ── */
-[data-testid="stDataFrame"] {
-    border-radius: 10px;
+/* ═══ HEADER ═══ */
+.dash-hero {
+    background: linear-gradient(135deg, #1E293B 0%, #0F172A 60%, #1a1a2e 100%);
+    border-radius: 16px;
+    padding: 2.2rem 2.5rem 1.8rem;
+    margin-bottom: 1.4rem;
+    position: relative;
     overflow: hidden;
 }
+.dash-hero::before {
+    content: '';
+    position: absolute;
+    top: -40%; right: -10%;
+    width: 340px; height: 340px;
+    background: radial-gradient(circle, rgba(79,70,229,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+}
+.dash-hero h1 {
+    color: #FFFFFF !important;
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.25rem;
+    position: relative;
+}
+.dash-hero .subtitle {
+    color: #94A3B8 !important;
+    font-size: 0.85rem;
+    font-weight: 400;
+    position: relative;
+}
+.dash-hero .badge {
+    display: inline-block;
+    background: rgba(79,70,229,0.25);
+    color: #A5B4FC;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    margin-bottom: 0.7rem;
+    letter-spacing: 0.04em;
+    position: relative;
+}
 
-/* ── Divider ── */
-hr { border-color: #E2E8F0 !important; margin: 1.2rem 0; }
+/* ═══ METRIC CARDS ═══ */
+.kpi-row { display: flex; gap: 0.9rem; margin-bottom: 1.2rem; }
+.kpi-card {
+    flex: 1;
+    background: #FFFFFF;
+    border-radius: 14px;
+    padding: 1.3rem 1.2rem 1.15rem;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.04), 0 4px 12px rgba(15,23,42,0.03);
+    border: 1px solid #F1F5F9;
+    position: relative;
+    overflow: hidden;
+}
+.kpi-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+}
+.kpi-card.c1::after { background: linear-gradient(90deg, #4F46E5, #818CF8); }
+.kpi-card.c2::after { background: linear-gradient(90deg, #0EA5E9, #67E8F9); }
+.kpi-card.c3::after { background: linear-gradient(90deg, #10B981, #6EE7B7); }
+.kpi-card.c4::after { background: linear-gradient(90deg, #F59E0B, #FCD34D); }
 
-/* ── Policy cards ── */
-.policy-card {
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-radius: 12px;
-    padding: 1.3rem 1.5rem;
+.kpi-card .kpi-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+.kpi-card .kpi-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #94A3B8 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.3rem;
+}
+.kpi-card .kpi-value {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #1E293B !important;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+.kpi-card .kpi-unit {
+    font-size: 0.72rem;
+    color: #94A3B8 !important;
+    margin-top: 0.15rem;
+}
+
+/* ═══ CHART WRAPPER ═══ */
+.chart-card {
+    background: #FFFFFF;
+    border-radius: 14px;
+    padding: 1.2rem 1.2rem 0.8rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.04), 0 4px 12px rgba(15,23,42,0.03);
+    border: 1px solid #F1F5F9;
+}
+.chart-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1E293B !important;
+    margin: 0 0 0.2rem;
+}
+.chart-card-desc {
+    font-size: 0.78rem;
+    color: #94A3B8 !important;
+    margin: 0 0 0.8rem;
+}
+
+/* ═══ SECTION TITLE ═══ */
+.section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1E293B !important;
+    border-left: 3px solid #4F46E5;
+    padding-left: 0.7rem;
+    margin: 1.4rem 0 0.8rem;
+}
+
+h1, h2, h3 { color: #1E293B !important; font-weight: 700; }
+
+/* ═══ TABS ═══ */
+[data-baseweb="tab-list"] {
+    gap: 0 !important;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 0.25rem;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+    border: 1px solid #F1F5F9;
     margin-bottom: 1rem;
 }
+button[data-baseweb="tab"] {
+    font-weight: 500 !important;
+    font-size: 0.82rem !important;
+    color: #64748B !important;
+    background: transparent !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1rem !important;
+    border: none !important;
+}
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    background: #4F46E5 !important;
+}
+[data-baseweb="tab-highlight"], [data-baseweb="tab-border"] {
+    display: none !important;
+}
+
+/* ═══ SIDEBAR ═══ */
+section[data-testid="stSidebar"] {
+    background: #FFFFFF !important;
+    border-right: 1px solid #F1F5F9 !important;
+}
+.sidebar-brand {
+    text-align: center;
+    padding: 0.6rem 0 1rem;
+    border-bottom: 1px solid #F1F5F9;
+    margin-bottom: 1rem;
+}
+.sidebar-brand .logo {
+    font-size: 1.7rem;
+    margin-bottom: 0.2rem;
+}
+.sidebar-brand .brand-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1E293B !important;
+    letter-spacing: -0.01em;
+}
+.sidebar-brand .brand-sub {
+    font-size: 0.68rem;
+    color: #94A3B8 !important;
+}
+section[data-testid="stSidebar"] label {
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    color: #475569 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+section[data-testid="stSidebar"] span[data-baseweb="tag"] {
+    background: #EEF2FF !important;
+    color: #4F46E5 !important;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid #C7D2FE !important;
+}
+section[data-testid="stSidebar"] span[data-baseweb="tag"] span[role="presentation"] {
+    color: #4F46E5 !important;
+}
+
+/* ═══ DATAFRAME ═══ */
+[data-testid="stDataFrame"] {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+    border: 1px solid #F1F5F9;
+}
+
+/* ═══ DIVIDER ═══ */
+hr {
+    border: none !important;
+    height: 1px !important;
+    background: #F1F5F9 !important;
+    margin: 1rem 0 !important;
+}
+
+/* ═══ POLICY CARDS ═══ */
+.policy-card {
+    background: #FFFFFF;
+    border: 1px solid #F1F5F9;
+    border-radius: 14px;
+    padding: 1.3rem 1.4rem;
+    margin-bottom: 0.9rem;
+    box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+}
 .policy-card h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #0F172A !important;
-    margin: 0 0 0.5rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #1E293B !important;
+    margin: 0 0 0.45rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 .policy-card p, .policy-card li {
-    font-size: 0.86rem;
+    font-size: 0.82rem;
     color: #475569 !important;
-    line-height: 1.65;
+    line-height: 1.7;
 }
 .policy-card strong {
     color: #1E293B !important;
+    font-weight: 600;
 }
+.policy-card ul { padding-left: 1.2rem; margin: 0; }
+
+/* ═══ MISC ═══ */
+[data-testid="stMetricValue"] { color: #1E293B !important; }
 </style>
 """, unsafe_allow_html=True)
 
 
-def metric_card(label: str, value: str, unit: str = "") -> str:
-    """Return HTML for a styled metric card."""
-    unit_html = f'<div class="unit">{unit}</div>' if unit else ""
+def kpi_card(icon: str, label: str, value: str, unit: str, color_class: str) -> str:
+    unit_html = f'<div class="kpi-unit">{unit}</div>' if unit else ""
     return f"""
-    <div class="metric-card">
-        <div class="label">{label}</div>
-        <div class="value">{value}</div>
+    <div class="kpi-card {color_class}">
+        <div class="kpi-icon">{icon}</div>
+        <div class="kpi-label">{label}</div>
+        <div class="kpi-value">{value}</div>
         {unit_html}
     </div>
     """
@@ -299,7 +403,14 @@ def load_data():
 avg_income, pct_house, total_income_df = load_data()
 
 # ---------- Sidebar ----------
-st.sidebar.title("Filters")
+st.sidebar.markdown("""
+<div class="sidebar-brand">
+    <div class="logo">📊</div>
+    <div class="brand-name">Income Dashboard</div>
+    <div class="brand-sub">THackle DataViz 2566</div>
+</div>
+""", unsafe_allow_html=True)
+
 selected_main_groups = st.sidebar.multiselect(
     "เลือกกลุ่มอาชีพหลัก",
     sorted(total_income_df["occupation_group_main"].dropna().unique().tolist()),
@@ -312,9 +423,10 @@ filtered_total = total_income_df[
 
 # ── Header ──
 st.markdown("""
-<div class="dashboard-header">
+<div class="dash-hero">
+    <div class="badge">THACKLE DATAVIZ CHALLENGE</div>
     <h1>Household Income Dashboard</h1>
-    <p>THackle DataViz Challenge — Average Monthly Household Income in Thailand (2566)</p>
+    <div class="subtitle">รายได้เฉลี่ยต่อเดือนของครัวเรือนไทย พ.ศ. 2566 &mdash; สำนักงานสถิติแห่งชาติ</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -329,49 +441,38 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 
 # ═══  Tab 1 — Overview  ═══
 with tab1:
-    st.markdown('<div class="section-title">Key Figures</div>', unsafe_allow_html=True)
+    # KPI cards as raw HTML row for pixel-perfect control
+    st.markdown(f"""
+    <div class="kpi-row">
+        {kpi_card("🗺️", "จังหวัด", str(filtered_total['province'].nunique()), "provinces", "c1")}
+        {kpi_card("👥", "กลุ่มอาชีพหลัก", str(filtered_total['occupation_group_main'].nunique()), "groups", "c2")}
+        {kpi_card("🏷️", "กลุ่มอาชีพย่อย", str(filtered_total['occupation_group_detail'].nunique()), "sub-groups", "c3")}
+        {kpi_card("💰", "รายได้เฉลี่ย", f"{filtered_total['average_income'].mean():,.0f}", "บาท / เดือน", "c4")}
+    </div>
+    """, unsafe_allow_html=True)
 
-    c1, c2, c3, c4 = st.columns(4)
-    with c1:
-        st.markdown(metric_card(
-            "จังหวัด",
-            f"{filtered_total['province'].nunique()}",
-            "provinces"
-        ), unsafe_allow_html=True)
-    with c2:
-        st.markdown(metric_card(
-            "กลุ่มอาชีพหลัก",
-            f"{filtered_total['occupation_group_main'].nunique()}",
-            "groups"
-        ), unsafe_allow_html=True)
-    with c3:
-        st.markdown(metric_card(
-            "กลุ่มอาชีพย่อย",
-            f"{filtered_total['occupation_group_detail'].nunique()}",
-            "sub-groups"
-        ), unsafe_allow_html=True)
-    with c4:
-        st.markdown(metric_card(
-            "รายได้เฉลี่ย",
-            f"{filtered_total['average_income'].mean():,.0f}",
-            "บาท / เดือน"
-        ), unsafe_allow_html=True)
-
-    st.markdown("")
     income_cap = filtered_total["average_income"].quantile(0.99)
+
+    st.markdown("""
+    <div class="chart-card">
+        <div class="chart-card-title">Distribution of Average Monthly Household Income</div>
+        <div class="chart-card-desc">Filtered by selected occupation groups · capped at 99th percentile</div>
+    </div>
+    """, unsafe_allow_html=True)
 
     fig = px.histogram(
         filtered_total[filtered_total["average_income"] <= income_cap],
         x="average_income",
         nbins=20,
-        color_discrete_sequence=[CHART_COLORS[0]],
+        color_discrete_sequence=["#4F46E5"],
         labels={
             "average_income": "Average Income (Baht / month)",
             "count": "Number of Records"
         }
     )
-    styled_fig(fig, height=420, bargap=0.1)
-    fig.update_layout(title="Distribution of Average Monthly Household Income")
+    fig.update_traces(marker_line_width=0, opacity=0.9)
+    styled_fig(fig, height=400, bargap=0.12)
+    fig.update_layout(title="")
     st.plotly_chart(fig, use_container_width=True)
 
     income_band_summary = pd.DataFrame({
@@ -428,9 +529,10 @@ with tab2:
         },
     )
     fig.update_traces(texttemplate="%{text:,.0f}", textposition="outside",
-                      marker_line_width=0)
+                      marker_line_width=0, opacity=0.92)
     styled_fig(fig, height=680)
-    fig.update_layout(title="Average Monthly Household Income by Occupation")
+    fig.update_layout(title="Average Monthly Household Income by Occupation",
+                      plot_bgcolor="#FAFBFC")
     st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("---")
@@ -687,7 +789,7 @@ with tab5:
     with col_a:
         st.markdown("""
 <div class="policy-card">
-    <h4>1. Occupational Inequality</h4>
+    <h4>📌 1. Occupational Inequality</h4>
     <ul>
         <li>กลุ่มลูกจ้างมีช่องว่างรายได้ภายในกลุ่มสูงที่สุด</li>
         <li>นโยบายควรมุ่งเพิ่มโอกาสเข้าถึงงานคุณภาพ และยกระดับทักษะแรงงาน</li>
@@ -697,7 +799,7 @@ with tab5:
 
         st.markdown("""
 <div class="policy-card">
-    <h4>2. Spatial Inequality</h4>
+    <h4>🗺️ 2. Spatial Inequality</h4>
     <ul>
         <li>บางจังหวัดมี robust internal income gap สูง ขณะที่บางจังหวัดมี polarization สูง</li>
         <li>นโยบายระดับพื้นที่ควรแยกเป้าหมาย: "ยกระดับรายได้โดยรวม" vs "ลดช่องว่างภายในจังหวัด"</li>
@@ -708,7 +810,7 @@ with tab5:
     with col_b:
         st.markdown("""
 <div class="policy-card">
-    <h4>3. Income Structure Vulnerability</h4>
+    <h4>⚠️ 3. Income Structure Vulnerability</h4>
     <ul>
         <li><strong>ลูกจ้าง</strong> — พึ่งพาค่าจ้างเป็นหลัก</li>
         <li><strong>ผู้ประกอบธุรกิจ</strong> — พึ่งพากำไรธุรกิจเป็นหลัก</li>
@@ -720,7 +822,7 @@ with tab5:
 
         st.markdown("""
 <div class="policy-card">
-    <h4>4. Data Source</h4>
+    <h4>📋 4. Data Source</h4>
     <p>ข้อมูลจาก สำนักงานสถิติแห่งชาติ พ.ศ. 2566<br>
     Survey of Household Socio-Economic Status</p>
 </div>
